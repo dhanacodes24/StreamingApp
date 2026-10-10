@@ -1,7 +1,8 @@
 pipeline {
   agent any
   options {
-    timestamps()   // ✅ valid option
+    timestamps()
+    ansiColor('xterm')   // works once AnsiColor plugin is installed
   }
   environment {
     AWS_REGION   = 'us-east-1'
@@ -31,25 +32,23 @@ pipeline {
     }
     stage('Build & Push Images') {
       steps {
-        wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
-          echo "🚀 Building and pushing streaming-auth image..."
-          sh '''
-            set -x
-            docker build --progress=plain --no-cache \
-              -t $ECR_REGISTRY/streaming-auth:1.0.$BUILD_NUMBER backend/authService
-            docker push $ECR_REGISTRY/streaming-auth:1.0.$BUILD_NUMBER
-          '''
-          echo "✅ streaming-auth image pushed successfully."
+        echo "🚀 Building and pushing streaming-auth image..."
+        sh '''
+          set -x
+          docker build -t $ECR_REGISTRY/streaming-auth:1.0.$BUILD_NUMBER backend/authService
+          docker push $ECR_REGISTRY/streaming-auth:1.0.$BUILD_NUMBER
+        '''
+        echo "✅ streaming-auth image pushed successfully."
 
-          echo "🚀 Building and pushing streaming-admin image..."
-          sh '''
-            set -x
-            docker build --progress=plain --no-cache \
-              -t $ECR_REGISTRY/streaming-admin:1.0.$BUILD_NUMBER backend/adminService
-            docker push $ECR_REGISTRY/streaming-admin:1.0.$BUILD_NUMBER
-          '''
-          echo "✅ streaming-admin image pushed successfully."
-        }
+        echo "🚀 Building and pushing streaming-admin image..."
+        sh '''
+          set -x
+          docker build -t $ECR_REGISTRY/streaming-admin:1.0.$BUILD_NUMBER backend/adminService
+          docker push $ECR_REGISTRY/streaming-admin:1.0.$BUILD_NUMBER
+        '''
+        echo "✅ streaming-admin image pushed successfully."
+
+        // repeat for streaming-stream, streaming-chat, streaming-frontend
       }
     }
   }
