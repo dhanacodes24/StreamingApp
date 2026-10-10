@@ -1,14 +1,24 @@
 pipeline {
   agent any
   environment {
-    AWS_REGION = 'us-east-1'
+    AWS_REGION   = 'us-east-1'
     ECR_REGISTRY = '994114819227.dkr.ecr.us-east-1.amazonaws.com'
   }
   stages {
-    stage('Checkout') { steps { checkout scm } }
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
     stage('Login to ECR') {
       steps {
-        sh 'aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY'
+        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
+                          credentialsId: 'dhana_aws_creds']]) {
+          sh '''
+            aws ecr get-login-password --region $AWS_REGION \
+              | docker login --username AWS --password-stdin $ECR_REGISTRY
+          '''
+        }
       }
     }
     stage('Build & Push Images') {
@@ -20,4 +30,3 @@ pipeline {
     }
   }
 }
-
