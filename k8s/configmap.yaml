@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: streamingapp-config
+data:
+  AWS_REGION: "us-east-1"
+  MONGO_HOST: "mongo.default.svc.cluster.local"
+  MONGO_URI: "mongodb://mongo:27017/streamingapp"
+  MONGODB_URI: "mongodb://mongo:27017/streamingapp"
+  CLIENT_URLS: "http://streamingapp.local"
+  AWS_S3_BUCKET: "streamingapp-dhana-2026"

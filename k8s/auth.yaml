@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-deployment
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: { maxUnavailable: 0, maxSurge: 1 }
+  selector:
+    matchLabels: { app: auth }
+  template:
+    metadata:
+      labels: { app: auth }
+    spec:
+      containers:
+        - name: auth
+          image: 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-auth:1.0.13
+          ports:
+            - containerPort: 3001
+          envFrom:
+            - configMapRef: { name: streamingapp-config }
+            - secretRef: { name: streamingapp-secret }
+          env:
+            - name: PORT
+              value: "3001"
+          resources:
+            requests: { cpu: 100m, memory: 128Mi }
+            limits: { cpu: 500m, memory: 512Mi }
+          readinessProbe:
+            tcpSocket: { port: 3001 }
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket: { port: 3001 }
+            initialDelaySeconds: 30
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-svc
+spec:
+  type: ClusterIP
+  selector: { app: auth }
+  ports:
+    - port: 3001
+      targetPort: 3001
