@@ -1,8 +1,7 @@
 pipeline {
   agent any
   options {
-    timestamps()
-    ansiColor('xterm')   // works once AnsiColor plugin is installed
+    timestamps()   // ✅ valid option
   }
   environment {
     AWS_REGION   = 'us-east-1'
@@ -32,7 +31,7 @@ pipeline {
     }
     stage('Build & Push Images') {
       steps {
-        echo "🚀 Building and pushing streaming-auth image..."
+        echo "�� Building and pushing streaming-auth image..."
         sh '''
           set -x
           docker build -t $ECR_REGISTRY/streaming-auth:1.0.$BUILD_NUMBER backend/authService
