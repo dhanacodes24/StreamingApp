@@ -42,7 +42,14 @@ pipeline {
           docker build -t $ECR_REGISTRY/streaming-chat:$IMAGE_TAG \
             -f backend/chatService/Dockerfile backend
 
-          docker build -t $ECR_REGISTRY/streaming-frontend:$IMAGE_TAG frontend
+          docker build -t $ECR_REGISTRY/streaming-frontend:$IMAGE_TAG \
+            --build-arg REACT_APP_AUTH_API_URL=/api/auth/api \
+            --build-arg REACT_APP_STREAMING_API_URL=/api/streaming/api \
+            --build-arg REACT_APP_STREAMING_PUBLIC_URL=/api/streaming \
+            --build-arg REACT_APP_ADMIN_API_URL=/api/admin/api/admin \
+            --build-arg REACT_APP_CHAT_API_URL=/api/chat/api/chat \
+            --build-arg REACT_APP_CHAT_SOCKET_URL=http://streamingapp.local \
+            frontend
         '''
       }
     }
