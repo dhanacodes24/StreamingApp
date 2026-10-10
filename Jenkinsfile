@@ -1,10 +1,26 @@
+// Helper: publish a Chatbot-formatted message to an SNS topic
+def notifySlack(String topicArn, String title, String details) {
+  withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'dhana_aws_creds']]) {
+    withEnv(["TOPIC_ARN=${topicArn}", "MSG_TITLE=${title}", "MSG_BODY=${details}"]) {
+      sh '''
+        MSG=$(printf '{"version":"1.0","source":"custom","content":{"textType":"client-markdown","title":"%s","description":"%s"}}' "$MSG_TITLE" "$MSG_BODY")
+        aws sns publish --region $AWS_REGION --topic-arn "$TOPIC_ARN" --message "$MSG" \
+          || echo "WARNING: SNS notification failed (build result not affected)"
+      '''
+    }
+  }
+}
+
 pipeline {
   agent any
 
   environment {
-    AWS_REGION   = 'us-east-1'
-    ECR_REGISTRY = '994114819227.dkr.ecr.us-east-1.amazonaws.com'
-    IMAGE_TAG    = "1.0.${BUILD_NUMBER}"
+    AWS_REGION        = 'us-east-1'
+    ECR_REGISTRY      = '994114819227.dkr.ecr.us-east-1.amazonaws.com'
+    IMAGE_TAG         = "1.0.${BUILD_NUMBER}"
+    SNS_SUCCESS_TOPIC = 'arn:aws:sns:us-east-1:994114819227:streamingapp-deploy-success'
+    SNS_FAILURE_TOPIC = 'arn:aws:sns:us-east-1:994114819227:streamingapp-deploy-failure'
   }
 
   stages {
@@ -70,9 +86,15 @@ pipeline {
   post {
     success {
       echo "All 5 images pushed with tag ${IMAGE_TAG}"
+      notifySlack(env.SNS_SUCCESS_TOPIC,
+                  "Build succeeded",
+                  "${env.JOB_NAME} #${env.BUILD_NUMBER} - images tagged ${env.IMAGE_TAG} pushed to ECR - ${env.BUILD_URL}")
     }
     failure {
       echo "Build failed. Check the stage that turned red."
+      notifySlack(env.SNS_FAILURE_TOPIC,
+                  "Build FAILED",
+                  "${env.JOB_NAME} #${env.BUILD_NUMBER} failed - ${env.BUILD_URL}")
     }
     always {
       sh 'docker logout $ECR_REGISTRY || true'
