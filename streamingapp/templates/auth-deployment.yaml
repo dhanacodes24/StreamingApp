@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-deployment
+spec:
+  replicas: {{ .Values.services.auth.replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: { maxUnavailable: 0, maxSurge: 1 }
+  selector:
+    matchLabels: { app: auth }
+  template:
+    metadata:
+      labels: { app: auth }
+    spec:
+      containers:
+        - name: auth
+          image: "{{ .Values.services.auth.image }}:{{ .Values.services.auth.tag }}"
+          ports:
+            - containerPort: {{ .Values.services.auth.port }}
+          envFrom:
+            - configMapRef: { name: streamingapp-config }
+            - secretRef: { name: streamingapp-secret }
+          env:
+            - name: PORT
+              value: {{ .Values.services.auth.port | quote }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+          readinessProbe:
+            tcpSocket: { port: {{ .Values.services.auth.port }} }
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket: { port: {{ .Values.services.auth.port }} }
+            initialDelaySeconds: 30
+            periodSeconds: 20

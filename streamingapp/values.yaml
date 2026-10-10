@@ -1,0 +1,56 @@
+services:
+  auth:
+    image: 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-auth
+    tag: "1.0.13"
+    replicas: 2
+    port: 3001
+  streaming:
+    image: 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-stream
+    tag: "1.0.13"
+    replicas: 2
+    port: 3002
+  admin:
+    image: 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-admin
+    tag: "1.0.13"
+    replicas: 2
+    port: 3003
+  chat:
+    image: 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-chat
+    tag: "1.0.13"
+    replicas: 2
+    port: 3004
+  frontend:
+    image: 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-frontend
+    tag: "1.0.13"
+    replicas: 2
+    port: 80
+mongo:
+  image: mongo:6
+  storageSize: 5Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+ingress:
+  host: streamingapp.local
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+secrets:
+  jwtSecret: ""
+  awsAccessKeyId: ""
+  awsSecretAccessKey: ""
+config:
+  AWS_REGION: "us-east-1"
+  MONGO_HOST: "mongo.default.svc.cluster.local"
+  MONGO_URI: "mongodb://mongo:27017/streamingapp"
+  MONGODB_URI: "mongodb://mongo:27017/streamingapp"
+  CLIENT_URLS: "http://streamingapp.local"
+  AWS_S3_BUCKET: "streamingapp-dhana-2026"
