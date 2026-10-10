@@ -21,7 +21,7 @@ services:
     port: 3004
   frontend:
     image: 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-frontend
-    tag: "1.0.13"
+    tag: "1.0.16"
     replicas: 2
     port: 80
 mongo:
@@ -36,6 +36,7 @@ mongo:
       memory: 1Gi
 ingress:
   host: streamingapp.local
+  stripPrefix: true
 resources:
   requests:
     cpu: 100m
@@ -54,3 +55,4 @@ config:
   MONGODB_URI: "mongodb://mongo:27017/streamingapp"
   CLIENT_URLS: "http://streamingapp.local"
   AWS_S3_BUCKET: "streamingapp-dhana-2026"
+  STREAMING_PUBLIC_URL: "http://streamingapp.local/api/streaming"
