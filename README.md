@@ -1,5 +1,5 @@
 
-### Container Orchestration & Scaling — from `git push` to a production-style cluster on AWS
+## Container Orchestration & Scaling from `git push` to a production-style cluster on AWS
 
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
@@ -13,10 +13,8 @@
 **PPMCAD · DevOps Track · Multicloud Architecture in DevOps**
 *A 5-service MERN streaming platform — containerized, automated, deployed with Helm, exposed through a single Ingress, scaled with zero downtime, and monitored with CloudWatch.*
 ![divider](https://capsule-render.vercel.app/api?type=rect&color=FFFFFF&height=3&width=100%)
-# 🎬 StreamingApp on Kubernetes
 
-
-## 🎥 Final Output Demo Videos - Click on below YouTube links to check output
+## 🎥 StreamingApp on Kubernetes - Click on below YouTube links to check output ⬇️
 
 
 | 1. Streaming App / Netflix Clone Demo \| User \| Live Chat Broadcast | 2. Streaming App / Netflix Clone - Admin Portal Upload Video |
