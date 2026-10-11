@@ -344,26 +344,34 @@ docker push <account-id>.dkr.ecr.<region>.amazonaws.com/streaming-<service>:1.0.
 
 </details>
 
-### ✅ Expected output
+### ✅ output
 
-> **Expected:** `docker images` lists all 5 images with tag `1.0.0`.
 
-<p align="center">
-  <img src="docs/screenshots/03-docker-images.png" alt="docker images" width="800"><br>
+<img width="1072" height="210" alt="image" src="https://github.com/user-attachments/assets/a7f0eb2d-37b5-4442-bd56-347aa5a45f24" />
+
   <sub><b>Fig. 3</b> — Five locally built images</sub>
 </p>
 
-> **Expected:** Docker Hub shows all 5 repositories, each with a `1.0.x` tag and a recent push time.
+> ** Docker Hub shows all 5 repositories.
+<img width="1077" height="373" alt="image" src="https://github.com/user-attachments/assets/e1e780db-c9fd-41b8-b979-dfd422e429a7" />
 
-<p align="center">
-  <img src="docs/screenshots/04-docker-hub-repos.png" alt="Docker Hub repositories" width="800"><br>
   <sub><b>Fig. 4</b> — Docker Hub repositories</sub>
 </p>
 
-> **Expected:** ECR lists 5 repositories; each contains an image tagged `1.0.x` with a real size (hundreds of MB, not 0).
+> ECR  repositories; each contains an image tagged `1.0.x`
+>
+> <img width="1344" height="404" alt="image" src="https://github.com/user-attachments/assets/3a3afe46-fd56-4a1b-8000-c8090d1824c0" />
+
+<img width="1341" height="276" alt="image" src="https://github.com/user-attachments/assets/6ebc7b81-f9d9-4abd-aaf9-e9126b7340b0" />
+
+<img width="1342" height="344" alt="image" src="https://github.com/user-attachments/assets/9b112964-afe5-494b-b929-45ae30e9d04b" />
+
+<img width="1342" height="358" alt="image" src="https://github.com/user-attachments/assets/e37bec03-2dd9-4d40-8c92-b9deb5f243e6" />
+
+<img width="1339" height="351" alt="image" src="https://github.com/user-attachments/assets/6a1a93aa-49cd-458a-a030-98359b0c519d" />
+<img width="1340" height="359" alt="image" src="https://github.com/user-attachments/assets/cdd1d396-93dd-452b-8e3a-42f4c41e07fb" />
 
 <p align="center">
-  <img src="docs/screenshots/05-ecr-repos.png" alt="Amazon ECR repositories" width="800"><br>
   <sub><b>Fig. 5</b> — Amazon ECR repositories and image tags</sub>
 </p>
 
@@ -382,18 +390,31 @@ flowchart LR
     J --> S1["Checkout"] --> S2["Login to ECR"] --> S3["Build ×5"] --> S4["Push ×5"] --> OK["✅ SUCCESS"]
 ```
 
-> **Expected:** Console Output ends with `Finished: SUCCESS`; a new image tag appears in ECR.
+>  Console Output ends with `Finished: SUCCESS`; a new image tag appears in ECR.
+<img width="1050" height="459" alt="image" src="https://github.com/user-attachments/assets/4e199425-45cf-4967-b275-ef33aa727669" />
 
 <p align="center">
-  <img src="docs/screenshots/06-jenkins-build-success.png" alt="Jenkins build success" width="800"><br>
   <sub><b>Fig. 6</b> — Jenkins build finished successfully</sub>
 </p>
 
-> **Expected:** after a small commit + push, a new build starts automatically without clicking *Build Now*.
+> .”
+•  Technical confirmation:  
+“Running aws ecr describe-images --repository-name streamingapp shows a new tag 1.0.3 alongside the existing 1.0.0.”
+•  Assignment/demo note (3–4 lines):  
+“After building and pushing the Docker image, a new tag appeared in Amazon ECR. This confirms that the updated image was successfully uploaded.
+>  The tag helps differentiate versions, ensuring Kubernetes can pull the latest image during deployment.”.
+<img width="1055" height="319" alt="image" src="https://github.com/user-attachments/assets/e5f0e992-6881-4346-a8eb-0c852e567357" />
 
 <p align="center">
-  <img src="docs/screenshots/07-jenkins-auto-trigger.png" alt="Jenkins auto-triggered build" width="800"><br>
-  <sub><b>Fig. 7</b> — Build triggered automatically by a commit</sub>
+  <sub><b>Fig. 7</b> — New image tag created in ECR  </sub>
+</p>
+
+
+> Next Job triggered by Automation
+<img width="1664" height="708" alt="Dhana Streaming App Pipeline" src="https://github.com/user-attachments/assets/6b8130c9-9176-4d8a-a9c0-2292db93f631" />
+
+<p align="center">
+  <sub><b>Fig. 7</b> — Build Triggered by githubpush  </sub>
 </p>
 
 ---
@@ -415,8 +436,22 @@ eksctl create cluster \
 > ip-192-168-yy-yy.<region>.compute.internal     Ready    <none>   5m    v1.xx
 > ```
 
+<img width="1363" height="444" alt="image" src="https://github.com/user-attachments/assets/9f81374c-a20f-44af-971f-f9bacef38bdc" />
+
+<img width="1363" height="738" alt="image" src="https://github.com/user-attachments/assets/ebc260b7-f2d7-40fa-8de1-e091605959fe" />
+
+
 <p align="center">
   <img src="docs/screenshots/08-eks-nodes.png" alt="kubectl get nodes" width="800"><br>
+  <sub><b>Fig. 8</b> — EKS Cluster Creation <code>Ready</code> state</sub>
+</p>
+
+
+
+
+
+<p align="center">
+<img width="1360" height="272" alt="image" src="https://github.com/user-attachments/assets/d2b54257-8db4-46ff-9293-6199be6e66b9" />
   <sub><b>Fig. 8</b> — EKS worker nodes in <code>Ready</code> state</sub>
 </p>
 
@@ -442,7 +477,7 @@ kubectl get deployments,statefulsets,pods,svc
 > **Expected:** every Deployment/StatefulSet shows `READY` = desired/desired (e.g. `2/2`); all pods `Running`, none in `CrashLoopBackOff` or `Pending`.
 
 <p align="center">
-  <img src="docs/screenshots/09-k8s-manifests-applied.png" alt="kubectl apply and get" width="800"><br>
+<img width="656" height="413" alt="image" src="https://github.com/user-attachments/assets/099d06fe-3b21-42bc-a061-97d8d1162790" />
   <sub><b>Fig. 9</b> — Plain manifests applied, all workloads ready</sub>
 </p>
 
@@ -477,7 +512,7 @@ helm list
 > **Expected:** `helm lint` → `0 chart(s) failed`; `helm list` → release `streamingapp` with `STATUS: deployed`; pods for all 5 services + mongo reach `Running`.
 
 <p align="center">
-  <img src="docs/screenshots/10-helm-lint-install.png" alt="helm lint, install, list" width="800"><br>
+<img width="884" height="273" alt="image" src="https://github.com/user-attachments/assets/a89cd8ea-5344-4bab-a4cf-7ef7c0a933d4" />
   <sub><b>Fig. 10</b> — <code>helm lint</code>, <code>helm install</code> and <code>helm list</code></sub>
 </p>
 
@@ -497,14 +532,14 @@ kubectl get ingress                  # streamingapp-ingress with ADDRESS filled
 > **Expected:** `kubectl get ingress` lists `streamingapp-ingress` with an address.
 
 <p align="center">
-  <img src="docs/screenshots/11-ingress-address.png" alt="kubectl get ingress" width="800"><br>
+<img width="886" height="235" alt="image" src="https://github.com/user-attachments/assets/60138926-2125-4c91-ac2f-f39fc7beaa8e" />
   <sub><b>Fig. 11</b> — Ingress with an external address</sub>
 </p>
 
 > **Expected:** the React frontend loads at `http://streamingapp.local`.
 
 <p align="center">
-  <img src="docs/screenshots/12-app-home-via-ingress.png" alt="App home page via Ingress" width="800"><br>
+<img width="892" height="503" alt="image" src="https://github.com/user-attachments/assets/c9bb2772-66e3-4b49-b70a-00db665a3fa4" />
   <sub><b>Fig. 12</b> — Frontend served through the Ingress host</sub>
 </p>
 
@@ -541,10 +576,18 @@ kubectl scale deploy/streaming-deployment --replicas=4
 kubectl get pods -l app=streaming
 ```
 
+This test shows Kubernetes pod scaling in action. After increasing replicas for the `streaming-deployment`, multiple pods were created to handle more workload. The output lists four pods with different names, all in `Running` state, proving that scaling adds new pods automatically. This demonstrates Kubernetes’ ability to scale applications horizontally for better availability and performance.  
+
+
+
 > **Expected:** 4 `streaming` pods `Running` and `Ready`.
 
 <p align="center">
-  <img src="docs/screenshots/14-scale.png" alt="Scaling streaming deployment to 4 replicas" width="800"><br>
+
+
+<img width="1516" height="385" alt="image" src="https://github.com/user-attachments/assets/b180374d-de5f-448a-af1f-f3797e3bbc78" />
+
+    
   <sub><b>Fig. 14</b> — <code>streaming</code> scaled from 2 to 4 replicas</sub>
 </p>
 
@@ -565,8 +608,10 @@ kubectl rollout status deploy/auth-deployment
 
 > **Expected:** Terminal A prints `200` the whole time; Terminal B ends with `deployment "auth-deployment" successfully rolled out`.
 
+This side by side  demo shows Kubernetes scaling and rolling updates. Scaling increased the streaming-deployment replicas to 4, and all pods came up healthy. During the rolling update, continuous curl checks returned only 200, proving zero downtime while a new image tag was deployed. Kubernetes ensured smooth rollout with no failed requests, maintaining service availability throughout.
+
 <p align="center">
-  <img src="docs/screenshots/15-rolling-update-zero-downtime.png" alt="Rolling update with 200 responses" width="800"><br>
+<img width="1223" height="680" alt="image" src="https://github.com/user-attachments/assets/0776c37c-6457-4dee-95a5-ad9fe445e785" />
   <sub><b>Fig. 15</b> — Rolling update; no failed requests</sub>
 </p>
 
@@ -587,8 +632,12 @@ kubectl get pods,svc,ingress -A
 
 > **Expected:** every pod `Running`/`Ready` with ~0 restarts; services and ingress present.
 
+This test demonstrates Kubernetes pod self‑healing. After manually deleting one pod from the `streaming-deployment`, the Deployment controller automatically created a new replacement pod to maintain the desired replica count. The new pod came up and transitioned to `Running`, showing Kubernetes’ ability to recover and keep applications available without manual intervention.  
+
 <p align="center">
-  <img src="docs/screenshots/16-all-resources.png" alt="kubectl get pods,svc,ingress -A" width="800"><br>
+
+    <img width="1238" height="686" alt="image" src="https://github.com/user-attachments/assets/0c0c5c3f-e656-485e-a7b0-1158d023d11b" />
+
   <sub><b>Fig. 16</b> — <code>kubectl get pods,svc,ingress -A</code> (required deliverable)</sub>
 </p>
 
@@ -603,17 +652,30 @@ kubectl get pods,svc,ingress -A
 | ⬜ | **Self-healing** | `kubectl delete pod <backend-pod>` — replacement is created, app keeps working | Fig. 21 |
 
 <p align="center">
-  <img src="docs/screenshots/17-login.png" alt="Successful login" width="800"><br>
+    <img width="1432" height="725" alt="image" src="https://github.com/user-attachments/assets/2df6d2fa-0a1b-4b63-b5b9-4105c21e9eac" />
+
+<img width="1456" height="777" alt="image" src="https://github.com/user-attachments/assets/ebe971fd-e257-41fc-aa38-c4e43f15e62d" />
+
+  <img width="1457" height="774" alt="image" src="https://github.com/user-attachments/assets/24916455-52bb-4680-a30b-390a1b70aec7" />
+
+  
   <sub><b>Fig. 17</b> — Successful registration / login (JWT received)</sub>
 </p>
 
-<p align="center">
-  <img src="docs/screenshots/18-admin-upload.png" alt="Admin upload" width="800"><br>
+|
+    [![Streaming App / Netflix Clone Demo](https://img.youtube.com/vi/vQIc3XWywdA/maxresdefault.jpg)](https://youtu.be/vQIc3XWywdA) 
+
+|    ▶️ [Watch on YouTube](https://youtu.be/KeEV-_j1VD8) |
+
+  <p align="center">
+
   <sub><b>Fig. 18</b> — Video + thumbnail uploaded through the admin dashboard</sub>
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/19-playback.png" alt="Video playback" width="800"><br>
+    Streaming App / Netflix - Admin Portal Upload Video 
+
+    
   <sub><b>Fig. 19</b> — Uploaded video playing from the catalogue</sub>
 </p>
 
