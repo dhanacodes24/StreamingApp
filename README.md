@@ -450,19 +450,13 @@ eksctl create cluster \
 > ip-192-168-xx-xx.<region>.compute.internal     Ready    <none>   5m    v1.xx
 > ip-192-168-yy-yy.<region>.compute.internal     Ready    <none>   5m    v1.xx
 > ```
-
+<p align="center">
 <img width="1363" height="444" alt="image" src="https://github.com/user-attachments/assets/9f81374c-a20f-44af-971f-f9bacef38bdc" />
 
 <img width="1363" height="738" alt="image" src="https://github.com/user-attachments/assets/ebc260b7-f2d7-40fa-8de1-e091605959fe" />
 
-
-<p align="center">
-  <img src="docs/screenshots/08-eks-nodes.png" alt="kubectl get nodes" width="800"><br>
   <sub><b>Fig. 8</b> — EKS Cluster Creation <code>Ready</code> state</sub>
 </p>
-
-
-
 
 
 <p align="center">
