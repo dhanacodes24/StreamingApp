@@ -577,20 +577,6 @@ kubectl get ingress                  # streamingapp-ingress with ADDRESS filled
   <sub><b>Fig. 12</b> Pods and Ingress Across All Namespaces</sub>
 
 
-> **Expected:** each `/api/*` route reaches its service (not a `404`).
-
-| Route tested | Expected |
-|---|---|
-| `http://streamingapp.local/api/auth/health` | ✅ responds from auth-svc |
-| `http://streamingapp.local/api/streaming/health` | ✅ responds from streaming-svc |
-| `http://streamingapp.local/api/admin/health` | ✅ responds from admin-svc |
-| `http://streamingapp.local/api/chat/health` | ✅ responds from chat-svc |
-
-<p align="center">
-  <img src="docs/screenshots/13-ingress-api-routes.png" alt="All API routes via Ingress" width="800"><br>
-  <sub><b>Fig. 13</b> — All five paths resolving through one host</sub>
-</p>
-
 ---
 
 <a id="scale"></a>
