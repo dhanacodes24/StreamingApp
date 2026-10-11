@@ -10,6 +10,21 @@
 | [![Streaming App / Netflix Clone Demo](https://img.youtube.com/vi/vQIc3XWywdA/maxresdefault.jpg)](https://youtu.be/vQIc3XWywdA) | [![Streaming App / Netflix - Admin Portal Upload Video](https://img.youtube.com/vi/KeEV-_j1VD8/maxresdefault.jpg)](https://youtu.be/KeEV-_j1VD8) |
 | ▶️ [Watch on YouTube](https://youtu.be/vQIc3XWywdA) | ▶️ [Watch on YouTube](https://youtu.be/KeEV-_j1VD8) |
 
+
+-----------------------------------
+
+## BONUS  ChatOps Alert in Slack
+
+<p align="center"> 
+
+<img width="1233" height="656" alt="image" src="https://github.com/user-attachments/assets/0aa967d2-7170-4ff6-8091-d894e2fe02df" />
+
+ <img width="1122" height="525" alt="image" src="https://github.com/user-attachments/assets/b736c4e1-7670-4037-bde2-5b2ef49c2227" />
+ 
+
+  <sub><b>Fig. 25</b> — Settings and Real alert delivered to the chat channel after a pipeline run</sub>
+</p>
+
 ### Container Orchestration & Scaling — from `git push` to a production-style cluster on AWS
 
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
@@ -701,7 +716,6 @@ Chat message broadcast accross two browser , please view screen recording of thi
 |    ▶️ [Watch on YouTube](https://youtu.be/KeEV-_j1VD8) |
 
 <p align="center">
-  <img src="docs/screenshots/20-chat-two-tabs.png" alt="Chat across two tabs" width="800"><br>
   <sub><b>Fig. 20</b> — Chat message broadcast across two browser tabs</sub>
 </p>
 
