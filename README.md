@@ -1,17 +1,32 @@
-<div align="center">
 
+### Container Orchestration & Scaling — from `git push` to a production-style cluster on AWS
+
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
+![Helm](https://img.shields.io/badge/Helm-0F1689?style=for-the-badge&logo=helm&logoColor=white)
+![AWS EKS](https://img.shields.io/badge/Amazon_EKS-FF9900?style=for-the-badge&logo=amazoneks&logoColor=white)
+![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white)
+![NGINX](https://img.shields.io/badge/NGINX_Ingress-009639?style=for-the-badge&logo=nginx&logoColor=white)
+![CloudWatch](https://img.shields.io/badge/CloudWatch-FF4F8B?style=for-the-badge&logo=amazoncloudwatch&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+
+**PPMCAD · DevOps Track · Multicloud Architecture in DevOps**
+*A 5-service MERN streaming platform — containerized, automated, deployed with Helm, exposed through a single Ingress, scaled with zero downtime, and monitored with CloudWatch.*
+![divider](https://capsule-render.vercel.app/api?type=rect&color=FFFFFF&height=3&width=100%)
 # 🎬 StreamingApp on Kubernetes
 
 
-## 🎥 Final Output Demo Videos
+## 🎥 Final Output Demo Videos - Click on below YouTube links to check output
 
-| 1. Streaming App / Netflix Clone Demo \| User \| Live Chat Broadcast | 2. Streaming App / Netflix - Admin Portal Upload Video |
+
+| 1. Streaming App / Netflix Clone Demo \| User \| Live Chat Broadcast | 2. Streaming App / Netflix Clone - Admin Portal Upload Video |
 |:---:|:---:|
 | [![Streaming App / Netflix Clone Demo](https://img.youtube.com/vi/vQIc3XWywdA/maxresdefault.jpg)](https://youtu.be/vQIc3XWywdA) | [![Streaming App / Netflix - Admin Portal Upload Video](https://img.youtube.com/vi/KeEV-_j1VD8/maxresdefault.jpg)](https://youtu.be/KeEV-_j1VD8) |
-| ▶️ [Watch on YouTube](https://youtu.be/vQIc3XWywdA) | ▶️ [Watch on YouTube](https://youtu.be/KeEV-_j1VD8) |
+| ▶️ [Watch on YouTube](https://youtu.be/vQIc3XWywdA)  | ▶️ [Watch on YouTube](https://youtu.be/KeEV-_j1VD8) |
 
 
------------------------------------
+
+![divider](https://capsule-render.vercel.app/api?type=rect&color=FFFFFF&height=3&width=100%)
 
 ## BONUS  ChatOps Alert in Slack
 
@@ -22,8 +37,13 @@
  <img width="1122" height="525" alt="image" src="https://github.com/user-attachments/assets/b736c4e1-7670-4037-bde2-5b2ef49c2227" />
  
 
-  <sub><b>Fig. 25</b> — Settings and Real alert delivered to the chat channel after a pipeline run</sub>
+  <sub><b>Fig</b> — Settings and Real alert delivered to the chat channel after a pipeline run</sub>
 </p>
+
+---------------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------------
 
 ### Container Orchestration & Scaling — from `git push` to a production-style cluster on AWS
 
