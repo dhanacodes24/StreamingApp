@@ -441,10 +441,12 @@ flowchart LR
 
 
 > Next Job triggered by Automation
+<img width="1120" height="694" alt="image" src="https://github.com/user-attachments/assets/cd231318-c746-419a-8425-832d1fcbb402" />
+
 <img width="1664" height="708" alt="Dhana Streaming App Pipeline" src="https://github.com/user-attachments/assets/6b8130c9-9176-4d8a-a9c0-2292db93f631" />
 
 <p align="center">
-  <sub><b>Fig. 7</b> — Build Triggered by githubpush  </sub>
+  <sub><b>Fig. 7</b> — Webhook added and Build Triggered by githubpush  </sub>
 </p>
 
 ---
