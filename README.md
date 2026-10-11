@@ -771,6 +771,730 @@ flowchart LR
 
 <img width="1233" height="656" alt="image" src="https://github.com/user-attachments/assets/0aa967d2-7170-4ff6-8091-d894e2fe02df" />
 
+
+
+<details>
+<summary>📄 ➡️ <b>Click to expand — Jenkins Console output</b></summary>
+
+```html
+Started by GitHub push by dhanacodes24
+Obtained Jenkinsfile from git https://github.com/dhanacodes24/StreamingApp.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/dhana-streamingapp-pipeline
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: git
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/dhana-streamingapp-pipeline/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/dhanacodes24/StreamingApp.git # timeout=10
+Fetching upstream changes from https://github.com/dhanacodes24/StreamingApp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.0'
+ > git fetch --tags --force --progress -- https://github.com/dhanacodes24/StreamingApp.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 3fcca177924021465d3e6f8fb9ae8b6fbad8181e (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 3fcca177924021465d3e6f8fb9ae8b6fbad8181e # timeout=10
+Commit message: "Add SNS notifications to Jenkins pipeline"
+ > git rev-list --no-walk 5cad4bd49f5699f618cbe7b7085255685fb84355 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] checkout
+The recommended git tool is: git
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/dhana-streamingapp-pipeline/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/dhanacodes24/StreamingApp.git # timeout=10
+Fetching upstream changes from https://github.com/dhanacodes24/StreamingApp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.0'
+ > git fetch --tags --force --progress -- https://github.com/dhanacodes24/StreamingApp.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 3fcca177924021465d3e6f8fb9ae8b6fbad8181e (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 3fcca177924021465d3e6f8fb9ae8b6fbad8181e # timeout=10
+Commit message: "Add SNS notifications to Jenkins pipeline"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Login to ECR)
+[Pipeline] withCredentials
+Masking supported pattern matches of $AWS_ACCESS_KEY_ID or $AWS_SECRET_ACCESS_KEY
+[Pipeline] {
+[Pipeline] sh
++ + dockeraws login ecr --username get-login-password AWS --region --password-stdin us-east-1 994114819227.dkr.ecr.us-east-1.amazonaws.com
+
+
+WARNING! Your credentials are stored unencrypted in '/var/lib/jenkins/.docker/config.json'.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/go/credential-store/
+
+Login Succeeded
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Images)
+[Pipeline] sh
++ set -e
++ docker build -t 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-auth:1.0.18 backend/authService
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  101.9kB
+
+Step 1/8 : FROM node:18-alpine AS base
+ ---> 8d6421d663b4
+Step 2/8 : WORKDIR /app
+ ---> Using cache
+ ---> f899fbf6b622
+Step 3/8 : COPY package*.json ./
+ ---> Using cache
+ ---> e7006cd4a43d
+Step 4/8 : RUN npm install --production
+ ---> Using cache
+ ---> c85b34dd6132
+Step 5/8 : COPY . .
+ ---> Using cache
+ ---> c24c19e65ece
+Step 6/8 : ENV NODE_ENV=production
+ ---> Using cache
+ ---> db75c57e7d75
+Step 7/8 : EXPOSE 3001
+ ---> Using cache
+ ---> 8cd34ed28775
+Step 8/8 : CMD ["npm", "run", "start"]
+ ---> Using cache
+ ---> 4346657a2ad4
+Successfully built 4346657a2ad4
+Successfully tagged 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-auth:1.0.18
++ docker build -t 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-stream:1.0.18 -f backend/streamingService/Dockerfile backend
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  16.14MB
+
+Step 1/8 : FROM node:18-alpine AS base
+ ---> 8d6421d663b4
+Step 2/8 : WORKDIR /app/streamingService
+ ---> Using cache
+ ---> ced15c0e06d0
+Step 3/8 : COPY streamingService/package*.json ./
+ ---> Using cache
+ ---> 6386e9291ed8
+Step 4/8 : RUN npm install --production
+ ---> Using cache
+ ---> 6ce4f854dee3
+Step 5/8 : COPY streamingService/. ./
+ ---> Using cache
+ ---> 64e760312c5a
+Step 6/8 : ENV NODE_ENV=production
+ ---> Using cache
+ ---> 152524687a2b
+Step 7/8 : EXPOSE 3002
+ ---> Using cache
+ ---> bfec76fed507
+Step 8/8 : CMD ["npm", "run", "start"]
+ ---> Using cache
+ ---> 2d9cdfa7db17
+Successfully built 2d9cdfa7db17
+Successfully tagged 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-stream:1.0.18
++ docker build -t 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-admin:1.0.18 -f backend/adminService/Dockerfile backend
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  16.14MB
+
+Step 1/8 : FROM node:18-alpine AS base
+ ---> 8d6421d663b4
+Step 2/8 : WORKDIR /app/adminService
+ ---> Using cache
+ ---> bc3175d86922
+Step 3/8 : COPY adminService/package*.json ./
+ ---> Using cache
+ ---> 45a400998813
+Step 4/8 : RUN npm install --production
+ ---> Using cache
+ ---> d08f0f97b4c4
+Step 5/8 : COPY adminService/. ./
+ ---> Using cache
+ ---> 1e7223ee39ec
+Step 6/8 : ENV NODE_ENV=production
+ ---> Using cache
+ ---> 57f3ef6104ea
+Step 7/8 : EXPOSE 3003
+ ---> Using cache
+ ---> 59965b423bd5
+Step 8/8 : CMD ["npm", "run", "start"]
+ ---> Using cache
+ ---> 7426b2604da9
+Successfully built 7426b2604da9
+Successfully tagged 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-admin:1.0.18
++ docker build -t 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-chat:1.0.18 -f backend/chatService/Dockerfile backend
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  16.14MB
+
+Step 1/8 : FROM node:18-alpine AS base
+ ---> 8d6421d663b4
+Step 2/8 : WORKDIR /app/chatService
+ ---> Using cache
+ ---> a38521fe7ba4
+Step 3/8 : COPY chatService/package*.json ./
+ ---> Using cache
+ ---> 777111db52bb
+Step 4/8 : RUN npm install --production
+ ---> Using cache
+ ---> 125980113176
+Step 5/8 : COPY chatService/. ./
+ ---> Using cache
+ ---> 567f5f676878
+Step 6/8 : ENV NODE_ENV=production
+ ---> Using cache
+ ---> f7afa8ac7b3c
+Step 7/8 : EXPOSE 3004
+ ---> Using cache
+ ---> 6b62777b8b0b
+Step 8/8 : CMD ["npm", "run", "start"]
+ ---> Using cache
+ ---> 7c9f26b14aab
+Successfully built 7c9f26b14aab
+Successfully tagged 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-chat:1.0.18
++ docker build -t 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-frontend:1.0.18 --build-arg REACT_APP_AUTH_API_URL=/api/auth/api --build-arg REACT_APP_STREAMING_API_URL=/api/streaming/api --build-arg REACT_APP_STREAMING_PUBLIC_URL=/api/streaming --build-arg REACT_APP_ADMIN_API_URL=/api/admin/api/admin --build-arg REACT_APP_CHAT_API_URL=/api/chat/api/chat --build-arg REACT_APP_CHAT_SOCKET_URL=http://streamingapp.local frontend
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  967.7kB
+
+Step 1/22 : FROM node:18-alpine AS build
+ ---> 8d6421d663b4
+Step 2/22 : WORKDIR /app
+ ---> Using cache
+ ---> f899fbf6b622
+Step 3/22 : COPY package*.json ./
+ ---> Using cache
+ ---> e0c3f08b8c67
+Step 4/22 : RUN npm install
+ ---> Using cache
+ ---> 001763df7d53
+Step 5/22 : COPY . .
+ ---> Using cache
+ ---> 71b7cbe32d0c
+Step 6/22 : ARG REACT_APP_AUTH_API_URL
+ ---> Using cache
+ ---> ef532b8ecbbd
+Step 7/22 : ARG REACT_APP_STREAMING_API_URL
+ ---> Using cache
+ ---> dba977e00ed5
+Step 8/22 : ARG REACT_APP_STREAMING_PUBLIC_URL
+ ---> Using cache
+ ---> 3c3d88e1d721
+Step 9/22 : ARG REACT_APP_ADMIN_API_URL
+ ---> Using cache
+ ---> 6c286580b3c2
+Step 10/22 : ARG REACT_APP_CHAT_API_URL
+ ---> Using cache
+ ---> 0ed57631781b
+Step 11/22 : ARG REACT_APP_CHAT_SOCKET_URL
+ ---> Using cache
+ ---> 6d8c69cd351e
+Step 12/22 : ENV REACT_APP_AUTH_API_URL=${REACT_APP_AUTH_API_URL}
+ ---> Using cache
+ ---> 48e4f88f80ae
+Step 13/22 : ENV REACT_APP_STREAMING_API_URL=${REACT_APP_STREAMING_API_URL}
+ ---> Using cache
+ ---> f1e2dff230ed
+Step 14/22 : ENV REACT_APP_STREAMING_PUBLIC_URL=${REACT_APP_STREAMING_PUBLIC_URL}
+ ---> Using cache
+ ---> 93a0e5848484
+Step 15/22 : ENV REACT_APP_ADMIN_API_URL=${REACT_APP_ADMIN_API_URL}
+ ---> Using cache
+ ---> 6adc546b3a97
+Step 16/22 : ENV REACT_APP_CHAT_API_URL=${REACT_APP_CHAT_API_URL}
+ ---> Using cache
+ ---> c21cc0cc36cc
+Step 17/22 : ENV REACT_APP_CHAT_SOCKET_URL=${REACT_APP_CHAT_SOCKET_URL}
+ ---> Using cache
+ ---> 8dc04431c8ef
+Step 18/22 : RUN npm run build
+ ---> Using cache
+ ---> 778fd72ada1b
+Step 19/22 : FROM nginx:1.27-alpine AS production
+ ---> 65645c7bb6a0
+Step 20/22 : COPY --from=build /app/build /usr/share/nginx/html
+ ---> Using cache
+ ---> fe43a5bd0d98
+Step 21/22 : EXPOSE 80
+ ---> Using cache
+ ---> ab709c2a9962
+Step 22/22 : CMD ["nginx", "-g", "daemon off;"]
+ ---> Using cache
+ ---> 9fbfb4a7fe64
+Successfully built 9fbfb4a7fe64
+Successfully tagged 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-frontend:1.0.18
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push Images)
+[Pipeline] sh
++ set -e
++ echo Pushing streaming-auth:1.0.18
+Pushing streaming-auth:1.0.18
++ docker push 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-auth:1.0.18
+The push refers to repository [994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-auth]
+f18232174bc9: Waiting
+3db0a8e05bbd: Waiting
+dd71dde834b5: Waiting
+bb69e233fb1b: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+a37f60bb2a77: Waiting
+c4c5af9ee31d: Waiting
+f18232174bc9: Waiting
+3db0a8e05bbd: Waiting
+dd71dde834b5: Waiting
+bb69e233fb1b: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+a37f60bb2a77: Waiting
+c4c5af9ee31d: Waiting
+25ff2da83641: Waiting
+a37f60bb2a77: Waiting
+c4c5af9ee31d: Waiting
+f18232174bc9: Waiting
+3db0a8e05bbd: Waiting
+dd71dde834b5: Waiting
+bb69e233fb1b: Waiting
+1e5a4c89cee5: Waiting
+a37f60bb2a77: Waiting
+c4c5af9ee31d: Waiting
+f18232174bc9: Waiting
+3db0a8e05bbd: Waiting
+dd71dde834b5: Waiting
+bb69e233fb1b: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+c4c5af9ee31d: Waiting
+f18232174bc9: Waiting
+3db0a8e05bbd: Waiting
+dd71dde834b5: Waiting
+bb69e233fb1b: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+a37f60bb2a77: Waiting
+bb69e233fb1b: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+a37f60bb2a77: Waiting
+c4c5af9ee31d: Waiting
+f18232174bc9: Waiting
+3db0a8e05bbd: Waiting
+dd71dde834b5: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+a37f60bb2a77: Waiting
+c4c5af9ee31d: Waiting
+f18232174bc9: Waiting
+3db0a8e05bbd: Waiting
+dd71dde834b5: Waiting
+bb69e233fb1b: Waiting
+a37f60bb2a77: Waiting
+c4c5af9ee31d: Waiting
+f18232174bc9: Waiting
+3db0a8e05bbd: Waiting
+dd71dde834b5: Waiting
+bb69e233fb1b: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+c4c5af9ee31d: Waiting
+f18232174bc9: Layer already exists
+3db0a8e05bbd: Layer already exists
+dd71dde834b5: Waiting
+bb69e233fb1b: Layer already exists
+1e5a4c89cee5: Waiting
+25ff2da83641: Layer already exists
+a37f60bb2a77: Waiting
+dd71dde834b5: Layer already exists
+1e5a4c89cee5: Layer already exists
+a37f60bb2a77: Layer already exists
+c4c5af9ee31d: Layer already exists
+1.0.18: digest: sha256:4346657a2ad45d823f931496d770c814dd2d6c67f4603670dc3bb4dd5ddf0cd3 size: 2058
++ echo Pushing streaming-stream:1.0.18
+Pushing streaming-stream:1.0.18
++ docker push 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-stream:1.0.18
+The push refers to repository [994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-stream]
+f18232174bc9: Waiting
+dd71dde834b5: Waiting
+3062efcc84f3: Waiting
+fb47781a59cd: Waiting
+8d495da4851c: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+e448f3af042a: Waiting
+3062efcc84f3: Waiting
+fb47781a59cd: Waiting
+8d495da4851c: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+e448f3af042a: Waiting
+f18232174bc9: Waiting
+dd71dde834b5: Waiting
+dd71dde834b5: Waiting
+3062efcc84f3: Waiting
+fb47781a59cd: Waiting
+8d495da4851c: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+e448f3af042a: Waiting
+f18232174bc9: Waiting
+e448f3af042a: Waiting
+f18232174bc9: Waiting
+dd71dde834b5: Waiting
+3062efcc84f3: Waiting
+fb47781a59cd: Waiting
+8d495da4851c: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+e448f3af042a: Waiting
+f18232174bc9: Waiting
+dd71dde834b5: Waiting
+3062efcc84f3: Waiting
+fb47781a59cd: Waiting
+8d495da4851c: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+fb47781a59cd: Waiting
+8d495da4851c: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+e448f3af042a: Waiting
+f18232174bc9: Waiting
+dd71dde834b5: Waiting
+3062efcc84f3: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+e448f3af042a: Waiting
+f18232174bc9: Waiting
+dd71dde834b5: Waiting
+3062efcc84f3: Waiting
+fb47781a59cd: Waiting
+8d495da4851c: Waiting
+8d495da4851c: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+e448f3af042a: Waiting
+f18232174bc9: Waiting
+dd71dde834b5: Waiting
+3062efcc84f3: Waiting
+fb47781a59cd: Waiting
+f18232174bc9: Layer already exists
+dd71dde834b5: Layer already exists
+3062efcc84f3: Layer already exists
+fb47781a59cd: Layer already exists
+8d495da4851c: Layer already exists
+1e5a4c89cee5: Layer already exists
+25ff2da83641: Layer already exists
+e448f3af042a: Layer already exists
+1.0.18: digest: sha256:2d9cdfa7db17bc9cb8ee5c65cafafef8f271f0cd30cc05de935d791885d72c18 size: 2062
++ echo Pushing streaming-admin:1.0.18
+Pushing streaming-admin:1.0.18
++ docker push 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-admin:1.0.18
+The push refers to repository [994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-admin]
+a79df1514ffd: Waiting
+e881df241d07: Waiting
+32433e13faa5: Waiting
+f18232174bc9: Waiting
+dd71dde834b5: Waiting
+de855b920e7c: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+32433e13faa5: Waiting
+f18232174bc9: Waiting
+dd71dde834b5: Waiting
+de855b920e7c: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+a79df1514ffd: Waiting
+e881df241d07: Waiting
+f18232174bc9: Waiting
+dd71dde834b5: Waiting
+de855b920e7c: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+a79df1514ffd: Waiting
+e881df241d07: Waiting
+32433e13faa5: Waiting
+32433e13faa5: Waiting
+f18232174bc9: Waiting
+dd71dde834b5: Waiting
+de855b920e7c: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+a79df1514ffd: Waiting
+e881df241d07: Waiting
+a79df1514ffd: Waiting
+e881df241d07: Waiting
+32433e13faa5: Waiting
+f18232174bc9: Waiting
+dd71dde834b5: Waiting
+de855b920e7c: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+a79df1514ffd: Waiting
+e881df241d07: Waiting
+32433e13faa5: Waiting
+f18232174bc9: Waiting
+dd71dde834b5: Waiting
+de855b920e7c: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+a79df1514ffd: Waiting
+e881df241d07: Waiting
+32433e13faa5: Waiting
+f18232174bc9: Waiting
+dd71dde834b5: Waiting
+de855b920e7c: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+f18232174bc9: Waiting
+dd71dde834b5: Waiting
+de855b920e7c: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+a79df1514ffd: Waiting
+e881df241d07: Waiting
+32433e13faa5: Waiting
+dd71dde834b5: Layer already exists
+de855b920e7c: Layer already exists
+1e5a4c89cee5: Layer already exists
+25ff2da83641: Layer already exists
+a79df1514ffd: Layer already exists
+e881df241d07: Layer already exists
+32433e13faa5: Layer already exists
+f18232174bc9: Layer already exists
+1.0.18: digest: sha256:7426b2604da9a72859955629bc1673cb0a88b2a1a3f7fdf1439cb10df0c7864f size: 2059
++ echo Pushing streaming-chat:1.0.18
+Pushing streaming-chat:1.0.18
++ docker push 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-chat:1.0.18
+The push refers to repository [994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-chat]
+25ff2da83641: Waiting
+6732c01b09b2: Waiting
+f452fd0454c6: Waiting
+e25dadf8f810: Waiting
+f18232174bc9: Waiting
+36c7964f037e: Waiting
+dd71dde834b5: Waiting
+1e5a4c89cee5: Waiting
+f452fd0454c6: Waiting
+e25dadf8f810: Waiting
+f18232174bc9: Waiting
+36c7964f037e: Waiting
+dd71dde834b5: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+6732c01b09b2: Waiting
+25ff2da83641: Waiting
+6732c01b09b2: Waiting
+f452fd0454c6: Waiting
+e25dadf8f810: Waiting
+f18232174bc9: Waiting
+36c7964f037e: Waiting
+dd71dde834b5: Waiting
+1e5a4c89cee5: Waiting
+f18232174bc9: Waiting
+36c7964f037e: Waiting
+dd71dde834b5: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+6732c01b09b2: Waiting
+f452fd0454c6: Waiting
+e25dadf8f810: Waiting
+f18232174bc9: Waiting
+36c7964f037e: Waiting
+dd71dde834b5: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+6732c01b09b2: Waiting
+f452fd0454c6: Waiting
+e25dadf8f810: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+6732c01b09b2: Waiting
+f452fd0454c6: Waiting
+e25dadf8f810: Waiting
+f18232174bc9: Waiting
+36c7964f037e: Waiting
+dd71dde834b5: Waiting
+e25dadf8f810: Waiting
+f18232174bc9: Waiting
+36c7964f037e: Waiting
+dd71dde834b5: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+6732c01b09b2: Waiting
+f452fd0454c6: Waiting
+e25dadf8f810: Waiting
+f18232174bc9: Waiting
+36c7964f037e: Waiting
+dd71dde834b5: Waiting
+1e5a4c89cee5: Waiting
+25ff2da83641: Waiting
+6732c01b09b2: Waiting
+f452fd0454c6: Waiting
+1e5a4c89cee5: Layer already exists
+25ff2da83641: Layer already exists
+6732c01b09b2: Layer already exists
+f452fd0454c6: Layer already exists
+e25dadf8f810: Layer already exists
+f18232174bc9: Waiting
+36c7964f037e: Layer already exists
+dd71dde834b5: Layer already exists
+f18232174bc9: Layer already exists
+1.0.18: digest: sha256:7c9f26b14aab8507088805ace37c8e5fb42917ccad1eca93b0b2e708f68bfc54 size: 2058
++ echo Pushing streaming-frontend:1.0.18
+Pushing streaming-frontend:1.0.18
++ docker push 994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-frontend:1.0.18
+The push refers to repository [994114819227.dkr.ecr.us-east-1.amazonaws.com/streaming-frontend]
+6bed0631b22c: Waiting
+f18232174bc9: Waiting
+61ca4f733c80: Waiting
+197eb75867ef: Waiting
+39c2ddfd6010: Waiting
+81bd8ed7ec67: Waiting
+b464cfdf2a63: Waiting
+d7e507024086: Waiting
+34a64644b756: Waiting
+f18232174bc9: Waiting
+61ca4f733c80: Waiting
+197eb75867ef: Waiting
+39c2ddfd6010: Waiting
+81bd8ed7ec67: Waiting
+b464cfdf2a63: Waiting
+d7e507024086: Waiting
+34a64644b756: Waiting
+6bed0631b22c: Waiting
+81bd8ed7ec67: Waiting
+b464cfdf2a63: Waiting
+d7e507024086: Waiting
+34a64644b756: Waiting
+6bed0631b22c: Waiting
+f18232174bc9: Waiting
+61ca4f733c80: Waiting
+197eb75867ef: Waiting
+39c2ddfd6010: Waiting
+6bed0631b22c: Waiting
+f18232174bc9: Waiting
+61ca4f733c80: Waiting
+197eb75867ef: Waiting
+39c2ddfd6010: Waiting
+81bd8ed7ec67: Waiting
+b464cfdf2a63: Waiting
+d7e507024086: Waiting
+34a64644b756: Waiting
+81bd8ed7ec67: Waiting
+b464cfdf2a63: Waiting
+d7e507024086: Waiting
+34a64644b756: Waiting
+6bed0631b22c: Waiting
+f18232174bc9: Waiting
+61ca4f733c80: Waiting
+197eb75867ef: Waiting
+39c2ddfd6010: Waiting
+81bd8ed7ec67: Waiting
+b464cfdf2a63: Waiting
+d7e507024086: Waiting
+34a64644b756: Waiting
+6bed0631b22c: Waiting
+f18232174bc9: Waiting
+61ca4f733c80: Waiting
+197eb75867ef: Waiting
+39c2ddfd6010: Waiting
+f18232174bc9: Waiting
+61ca4f733c80: Waiting
+197eb75867ef: Waiting
+39c2ddfd6010: Waiting
+81bd8ed7ec67: Waiting
+b464cfdf2a63: Waiting
+d7e507024086: Waiting
+34a64644b756: Waiting
+6bed0631b22c: Waiting
+b464cfdf2a63: Waiting
+d7e507024086: Waiting
+34a64644b756: Waiting
+6bed0631b22c: Waiting
+f18232174bc9: Waiting
+61ca4f733c80: Waiting
+197eb75867ef: Waiting
+39c2ddfd6010: Waiting
+81bd8ed7ec67: Waiting
+6bed0631b22c: Layer already exists
+f18232174bc9: Layer already exists
+61ca4f733c80: Layer already exists
+197eb75867ef: Layer already exists
+39c2ddfd6010: Layer already exists
+81bd8ed7ec67: Layer already exists
+b464cfdf2a63: Layer already exists
+d7e507024086: Layer already exists
+34a64644b756: Layer already exists
+1.0.18: digest: sha256:9fbfb4a7fe64efe166825d0270859613509d5c79656586ece0cb1e69fc7c0b03 size: 2264
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] sh
++ docker logout 994114819227.dkr.ecr.us-east-1.amazonaws.com
+Removing login credentials for 994114819227.dkr.ecr.us-east-1.amazonaws.com
+[Pipeline] echo
+All 5 images pushed with tag 1.0.18
+[Pipeline] withCredentials
+Masking supported pattern matches of $AWS_ACCESS_KEY_ID or $AWS_SECRET_ACCESS_KEY
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ printf {"version":"1.0","source":"custom","content":{"textType":"client-markdown","title":"%s","description":"%s"}} Build succeeded dhana-streamingapp-pipeline #18 - images tagged 1.0.18 pushed to ECR - http://13.236.67.54:8080/job/dhana-streamingapp-pipeline/18/
++ MSG={"version":"1.0","source":"custom","content":{"textType":"client-markdown","title":"Build succeeded","description":"dhana-streamingapp-pipeline #18 - images tagged 1.0.18 pushed to ECR - http://13.236.67.54:8080/job/dhana-streamingapp-pipeline/18/"}}
++ aws sns publish --region us-east-1 --topic-arn arn:aws:sns:us-east-1:994114819227:streamingapp-deploy-success --message {"version":"1.0","source":"custom","content":{"textType":"client-markdown","title":"Build succeeded","description":"dhana-streamingapp-pipeline #18 - images tagged 1.0.18 pushed to ECR - http://13.236.67.54:8080/job/dhana-streamingapp-pipeline/18/"}}
+{
+    "MessageId": "90d961a9-ec7f-51a9-9f60-02ed6782cd6c"
+}
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+
+
+```
+</details>
+
+
  <img width="1122" height="525" alt="image" src="https://github.com/user-attachments/assets/b736c4e1-7670-4037-bde2-5b2ef49c2227" />
  
 <img width="1116" height="576" alt="image" src="https://github.com/user-attachments/assets/f7d7e5cc-f394-4212-bbfc-d3ed488fa05c" />
