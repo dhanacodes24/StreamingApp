@@ -543,6 +543,11 @@ kubectl get ingress                  # streamingapp-ingress with ADDRESS filled
   <sub><b>Fig. 12</b> — Frontend served through the Ingress host</sub>
 </p>
 
+<p align="center">
+<img width="1115" height="638" alt="image" src="https://github.com/user-attachments/assets/346c9b07-2156-40e4-a5b7-66121ea96458" />
+  <sub><b>Fig. 12</b> Pods and Ingress Across All Namespaces</sub>
+
+
 > **Expected:** each `/api/*` route reaches its service (not a `404`).
 
 | Route tested | Expected |
@@ -641,6 +646,13 @@ This test demonstrates Kubernetes pod self‑healing. After manually deleting on
   <sub><b>Fig. 16</b> — <code>kubectl get pods,svc,ingress -A</code> (required deliverable)</sub>
 </p>
 
+
+<p align="center">
+<img width="930" height="507" alt="image" src="https://github.com/user-attachments/assets/46c7f324-9312-415b-97d3-2e483dee6ecf" />
+    <img width="929" height="285" alt="image" src="https://github.com/user-attachments/assets/6918ca3a-abcf-40ca-9976-7b55e686098d" />
+
+  <sub><b>Fig. 22</b> —  container inside /sub>
+</p>
 ### 🧪 End-to-end checks
 
 | ✔ | Test | What to do | Evidence |
@@ -662,10 +674,11 @@ This test demonstrates Kubernetes pod self‑healing. After manually deleting on
   <sub><b>Fig. 17</b> — Successful registration / login (JWT received)</sub>
 </p>
 
-|
-    [![Streaming App / Netflix Clone Demo](https://img.youtube.com/vi/vQIc3XWywdA/maxresdefault.jpg)](https://youtu.be/vQIc3XWywdA) 
+** Admin Login , Upload Video  , please view screen recording of this demo on YouTube by clicking below link  
 
-|    ▶️ [Watch on YouTube](https://youtu.be/KeEV-_j1VD8) |
+
+| [![Streaming App / Netflix - Admin Portal Upload Video](https://img.youtube.com/vi/KeEV-_j1VD8/maxresdefault.jpg)](https://youtu.be/KeEV-_j1VD8) |
+▶️ [Watch on YouTube](https://youtu.be/KeEV-_j1VD8) |
 
   <p align="center">
 
@@ -679,13 +692,21 @@ This test demonstrates Kubernetes pod self‑healing. After manually deleting on
   <sub><b>Fig. 19</b> — Uploaded video playing from the catalogue</sub>
 </p>
 
+
+Chat message broadcast accross two browser , please view screen recording of this demo on YouTube by clicking below link  
+
+|
+    [![Streaming App / Netflix Clone Demo](https://img.youtube.com/vi/vQIc3XWywdA/maxresdefault.jpg)](https://youtu.be/vQIc3XWywdA) 
+
+|    ▶️ [Watch on YouTube](https://youtu.be/KeEV-_j1VD8) |
+
 <p align="center">
   <img src="docs/screenshots/20-chat-two-tabs.png" alt="Chat across two tabs" width="800"><br>
   <sub><b>Fig. 20</b> — Chat message broadcast across two browser tabs</sub>
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/21-pod-self-heal.png" alt="Pod self-healing" width="800"><br>
+<img width="1331" height="755" alt="image" src="https://github.com/user-attachments/assets/3313cd04-fc59-4190-af3b-9c43987fa080" />
   <sub><b>Fig. 21</b> — Pod deleted, Deployment self-heals with no user impact</sub>
 </p>
 
@@ -706,20 +727,16 @@ flowchart LR
 | Alarm | CloudWatch → **Alarms** → e.g. `pod_cpu_utilization > 80%` for 5 min → SNS topic |
 | Logs | CloudWatch → **Log groups** → `/aws/containerinsights/streamingapp-cluster/application` |
 
-<p align="center">
-  <img src="docs/screenshots/22-cloudwatch-container-insights.png" alt="Container Insights" width="800"><br>
-  <sub><b>Fig. 22</b> — Live CPU / memory graphs per pod and node</sub>
-</p>
+
 
 <p align="center">
-  <img src="docs/screenshots/23-cloudwatch-alarm.png" alt="CloudWatch alarm" width="800"><br>
-  <sub><b>Fig. 23</b> — Alarm configured (state <code>OK</code> or <code>INSUFFICIENT_DATA</code>)</sub>
+    <img width="1114" height="515" alt="image" src="https://github.com/user-attachments/assets/ce0d5727-8ee2-4cf1-8609-e29a4dcd0a3d" />
+    <img width="1115" height="531" alt="image" src="https://github.com/user-attachments/assets/80959faf-a506-4630-8e9b-64dd353504d6" />
+
+
+  <sub><b>Fig. 23</b> — Alarm configured and received Alert </sub>
 </p>
 
-<p align="center">
-  <img src="docs/screenshots/24-cloudwatch-logs.png" alt="CloudWatch logs" width="800"><br>
-  <sub><b>Fig. 24</b> — Centralized pod logs (e.g. "Server listening on port 3001")</sub>
-</p>
 
 ---
 
@@ -735,9 +752,21 @@ flowchart LR
     T1 --> CB["AWS Chatbot / Lambda"] --> CH["💬 Slack · Teams · Telegram"]
 ```
 
-<p align="center">
-  <img src="docs/screenshots/25-sns-chatops.png" alt="ChatOps alert" width="800"><br>
-  <sub><b>Fig. 25</b> — Real alert delivered to the chat channel after a pipeline run</sub>
+<p align="center"> 
+
+<img width="1111" height="471" alt="image" src="https://github.com/user-attachments/assets/40c14473-56ac-4349-bb35-05edbd8414c8" />
+
+<img width="1110" height="527" alt="image" src="https://github.com/user-attachments/assets/e18e0762-7f11-4cde-98dd-e3a35aa867d6" />
+
+  <img width="1119" height="359" alt="image" src="https://github.com/user-attachments/assets/bb2f5777-4ea4-43b6-8771-4e3e4835cea6" />
+
+<img width="1233" height="656" alt="image" src="https://github.com/user-attachments/assets/0aa967d2-7170-4ff6-8091-d894e2fe02df" />
+
+ <img width="1122" height="525" alt="image" src="https://github.com/user-attachments/assets/b736c4e1-7670-4037-bde2-5b2ef49c2227" />
+ 
+<img width="1116" height="576" alt="image" src="https://github.com/user-attachments/assets/f7d7e5cc-f394-4212-bbfc-d3ed488fa05c" />
+
+  <sub><b>Fig. 25</b> — Settings and Real alert delivered to the chat channel after a pipeline run</sub>
 </p>
 
 ---
