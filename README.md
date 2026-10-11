@@ -14,19 +14,16 @@
 *A 5-service MERN streaming platform — containerized, automated, deployed with Helm, exposed through a single Ingress, scaled with zero downtime, and monitored with CloudWatch.*
 ![divider](https://capsule-render.vercel.app/api?type=rect&color=FFFFFF&height=3&width=100%)
 
-## 🎥 StreamingApp on Kubernetes - Click on below YouTube links to check output ⬇️
-
-
-| 1. Streaming App / Netflix Clone Demo \| User \| Live Chat Broadcast | 2. Streaming App / Netflix Clone - Admin Portal Upload Video |
+### 🎥 StreamingApp on Kubernetes - Click on below YouTube links to check output ⬇️
+![divider](https://capsule-render.vercel.app/api?type=rect&color=FFFFFF&height=3&width=100%)
+| 1️⃣ Streaming App / Netflix Clone Demo \| User \| Live Chat Broadcast | 2️⃣ Streaming App / Netflix Clone - Admin Portal Upload Video |
 |:---:|:---:|
 | [![Streaming App / Netflix Clone Demo](https://img.youtube.com/vi/vQIc3XWywdA/maxresdefault.jpg)](https://youtu.be/vQIc3XWywdA) | [![Streaming App / Netflix - Admin Portal Upload Video](https://img.youtube.com/vi/KeEV-_j1VD8/maxresdefault.jpg)](https://youtu.be/KeEV-_j1VD8) |
 | ▶️ [Watch on YouTube](https://youtu.be/vQIc3XWywdA)  | ▶️ [Watch on YouTube](https://youtu.be/KeEV-_j1VD8) |
 
-
-
 ![divider](https://capsule-render.vercel.app/api?type=rect&color=FFFFFF&height=3&width=100%)
 
-## BONUS  ChatOps Alert in Slack
+### ➕ BONUS  ChatOps Alert in Slack
 
 <p align="center"> 
 
