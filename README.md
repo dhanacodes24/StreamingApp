@@ -2,6 +2,14 @@
 
 # 🎬 StreamingApp on Kubernetes
 
+
+## 🎥 Final Output Demo Videos
+
+| 1. Streaming App / Netflix Clone Demo \| User \| Live Chat Broadcast | 2. Streaming App / Netflix - Admin Portal Upload Video |
+|:---:|:---:|
+| [![Streaming App / Netflix Clone Demo](https://img.youtube.com/vi/vQIc3XWywdA/maxresdefault.jpg)](https://youtu.be/vQIc3XWywdA) | [![Streaming App / Netflix - Admin Portal Upload Video](https://img.youtube.com/vi/KeEV-_j1VD8/maxresdefault.jpg)](https://youtu.be/KeEV-_j1VD8) |
+| ▶️ [Watch on YouTube](https://youtu.be/vQIc3XWywdA) | ▶️ [Watch on YouTube](https://youtu.be/KeEV-_j1VD8) |
+
 ### Container Orchestration & Scaling — from `git push` to a production-style cluster on AWS
 
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
